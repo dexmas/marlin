@@ -338,7 +338,7 @@
 
 #ifdef MKS_WIFI
   #define MKS_WIFI_SERIAL_NUM                SERIAL_PORT_2
-  #define MKS_WIFI_SERIAL_BAUDRATE           115200
+  #define MKS_WIFI_SERIAL_BAUDRATE           BAUDRATE_2
   #undef  PLATFORM_M997_SUPPORT
 
   #define MKS_WIFI_IO4                       EXP2_04_PIN

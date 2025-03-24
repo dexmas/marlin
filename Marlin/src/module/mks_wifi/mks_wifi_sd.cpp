@@ -245,6 +245,7 @@ void mks_wifi_start_file_upload(ESP_PROTOC_FRAME *packet) {
    if((dma_timeout == 0) || (dma_stopped == 2)) {
       dma_err = 10*dma_stopped + (dma_timeout == 0 ? 1 : 0);
       //Restart ESP8266
+      mks_wifi_send_exception(0x01);
       WRITE(MKS_WIFI_IO_RST, LOW);
       delay(200);	
       WRITE(MKS_WIFI_IO_RST, HIGH);
@@ -268,7 +269,8 @@ void mks_wifi_start_file_upload(ESP_PROTOC_FRAME *packet) {
 #endif
          ui.set_status((const char *)file_name,true);
          MKS_WIFI_DEBUG("Uploaded sucessfully");
-         BUZZ(512, 1024);
+         mks_wifi_send_exception(0x02);
+         BUZZ(128, 1024);
    } else {
          TERN_(USE_WATCHDOG, wd_reset());
 #if ENABLED(TFT_480x320) || ENABLED(TFT_480x320_SPI)
@@ -280,6 +282,7 @@ void mks_wifi_start_file_upload(ESP_PROTOC_FRAME *packet) {
          //MKS_WIFI_DEBUG("Rename file %s", file_name);
          //file.rename(dir, "file_failed.gcode");
 
+         mks_wifi_send_exception(0x01);
          BUZZ(218, 512);
          BUZZ(54,0);
          BUZZ(218, 512);

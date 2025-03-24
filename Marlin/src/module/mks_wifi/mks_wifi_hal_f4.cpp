@@ -35,6 +35,7 @@ void mks_wifi_hw_prepare(unsigned int buf, unsigned int count) {
    USART1->SR = 0;
    USART1->CR1 |= USART_CR1_RE;
 
+   // включаем тактирование DMA2
    __HAL_RCC_DMA2_CLK_ENABLE();
 
    DMA2_Stream5->CR = 0;
